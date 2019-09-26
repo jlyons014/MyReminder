@@ -8,4 +8,6 @@
     <string name="Title">Title</string>
     <string name="Date">Date</string>
     <string name="Type">Type</string>
+    <string name="title_activity_view__list">View_List</string>
+    <string name="title_activity_view_list">ViewList</string>
 </resources>

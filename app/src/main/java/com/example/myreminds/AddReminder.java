@@ -27,6 +27,7 @@ public class AddReminder extends AppCompatActivity {
     EditText titleEditText;
     EditText dateEditText;
     EditText typeEditText;
+    DBHandler dbHandler;
 
     Calendar calendar;
     @Override
@@ -81,6 +82,7 @@ public class AddReminder extends AppCompatActivity {
                         calendar.get(Calendar.DAY_OF_MONTH)        ).show();
             }
         });
+        dbHandler = new DBHandler(this, null);
 
     }
 
@@ -95,6 +97,12 @@ public class AddReminder extends AppCompatActivity {
         if (title.trim().equals("") || date.trim().equals("") || (type.trim().equals(""))) {
             //required data hasn't been input, so display toast
             Toast.makeText(this, "Please enter a title, date, and type!", Toast.LENGTH_LONG).show();
+
+        }
+        else {
+            //required data has been input, update the database and display a different toast
+            dbHandler.addReminder(title, date, type);
+            Toast.makeText(this, "Reminder added!", Toast.LENGTH_LONG).show();
 
         }
     }
