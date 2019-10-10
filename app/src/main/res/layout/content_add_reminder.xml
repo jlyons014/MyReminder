@@ -63,13 +63,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Type" />
 
-            <EditText
-                android:id="@+id/typeEditText"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/typeSpinner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:width="300dp"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:entries="@array/type"
+                android:paddingTop="@dimen/fab_margin" />
+
         </TableRow>
 
 

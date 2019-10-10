@@ -1,5 +1,6 @@
 package com.example.myreminds;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,23 +14,29 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Calendar;
 
-public class AddReminder extends AppCompatActivity {
+public class AddReminder extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Intent intent;
     EditText titleEditText;
     EditText dateEditText;
     EditText typeEditText;
     DBHandler dbHandler;
+    Spinner typeSpinner;
+    String type;
 
     Calendar calendar;
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +47,12 @@ public class AddReminder extends AppCompatActivity {
 //initialize EditTexts
         titleEditText = findViewById(R.id.titleEditText);
         dateEditText = findViewById(R.id.dateEditText);
-        typeEditText = findViewById(R.id.typeEditText);
+        typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
 
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,R.array.type, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);
+        typeSpinner.setOnItemSelectedListener(this);
 
         //initialize calendar
         calendar = Calendar.getInstance();
@@ -90,7 +101,7 @@ public class AddReminder extends AppCompatActivity {
 //get data input in EditTexts and store it in strings
         String title = titleEditText.getText().toString();
         String date = dateEditText.getText().toString();
-        String type = typeEditText.getText().toString();
+
 
 
         //trim Strings and see if any are equal to an empty string
@@ -147,4 +158,16 @@ public class AddReminder extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+        if (adapterView.equals(typeSpinner)){
+            type = adapterView.getItemAtPosition(position).toString();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }
